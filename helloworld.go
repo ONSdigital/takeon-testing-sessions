@@ -1,7 +1,6 @@
 package main //1
 
 import "fmt" //2
-import "os"
 
 type player struct{
 	health int
@@ -18,14 +17,8 @@ func main() { //3
 	
 	for gameOver==false{
 		
-		fmt.Print("Pick a Floor : ")
-		var input int
-		e, err := fmt.Scanln(&input)
-		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			return
-		}
-		currentPlayer.currentFloor = e
+		fmt.Printf("Current floor : %d\n", currentPlayer.currentFloor)
+		currentPlayer.currentFloor--
 		if currentPlayer.currentFloor == 0 {
 			gameOver=true
 			fmt.Println("Damn you Win again")
