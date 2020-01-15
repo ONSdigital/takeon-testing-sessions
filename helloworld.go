@@ -15,13 +15,13 @@ func main() { //3
 	var currentPlayer player
 	currentPlayer.currentFloor = startingFloor
 	var inputNumber int = 1
-	
+
 	for gameOver == false {
 		fmt.Printf("You are currently on floor : %d\n", currentPlayer.currentFloor)
-		output:=isLadderPresent(inputNumber)
-		fmt.Printf("Ladder: %t\n",output)
+		output := isLadderPresent(inputNumber)
+		fmt.Printf("Ladder: %t\n", output)
 		inputNumber++
-		
+
 	}
 }
 
@@ -36,19 +36,18 @@ func getInput() {
 
 }
 
+// MODULUS for next time
 
+// if currentPlayer.currentFloor == 0 {
+// 	gameOver = true
+// 	fmt.Println("Damn you Win again")
 
+// 	// fmt.Print("You can move (M/m)")
 
-		// if currentPlayer.currentFloor == 0 {
-		// 	gameOver = true
-		// 	fmt.Println("Damn you Win again")
-
-		// 	// fmt.Print("You can move (M/m)")
-
-		// 	// var input string
-		// 	// e, err := fmt.Scanln(&input)
-		// 	// if err != nil {
-		// 	// 	fmt.Fprintln(os.Stderr, err)
-		// 	// 	return
-		// 	// }
-		// }
+// 	// var input string
+// 	// e, err := fmt.Scanln(&input)
+// 	// if err != nil {
+// 	// 	fmt.Fprintln(os.Stderr, err)
+// 	// 	return
+// 	// }
+// }
