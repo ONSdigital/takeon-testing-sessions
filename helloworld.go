@@ -20,20 +20,30 @@ func main() { //3
 		fmt.Printf("You are currently on floor : %d\n", currentPlayer.currentFloor)
 		output := isLadderPresent(inputNumber)
 		fmt.Printf("Ladder: %t\n", output)
+		if output == true {
+			currentPlayer.currentFloor--
+		}
+		gameOver = isGameOver(currentPlayer.currentFloor)
 		inputNumber++
-
 	}
 }
 
 func isLadderPresent(number int) bool {
-	if number == 1 {
+	if number % 4 == 0 {
 		return true
 	}
 	return false
 }
 
-func getInput() {
+func getInput() string {
+	return ""
+}
 
+func isGameOver(floorNumber int) bool {
+	if floorNumber == 0 {
+		return true
+	}
+	return false
 }
 
 // MODULUS for next time
