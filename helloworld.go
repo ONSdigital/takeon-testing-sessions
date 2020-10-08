@@ -1,7 +1,11 @@
 package main //1
 
-import "fmt" //2
+import (
+		"fmt" 
+	)
 //import "os"
+
+
 
 type player struct {
 	health       int
@@ -35,6 +39,16 @@ func isLadderPresent(number int) bool {
 	return false
 }
 
+func isInputValid(input string) bool {
+	if input == "M" || input == "m" {
+		return true
+}
+	if input == "U" || input == "u" {
+		return true
+}
+	return false
+}
+
 func getInput() string {
 	return ""
 }
@@ -61,3 +75,5 @@ func isGameOver(floorNumber int) bool {
 // 	// 	return
 // 	// }
 // }
+
+// To do: need to link new functions (isInputValid etc) into main loop

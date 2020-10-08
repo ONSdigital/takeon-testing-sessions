@@ -56,3 +56,24 @@ func TestGetInput(t *testing.T) {
 	output := getInput()
 	assert.EqualValues(t, output, "M")
 }
+
+func TestIsInputValid(t *testing.T) {
+	tests := []struct {
+		input   string
+		isValid bool
+	}{
+		{"M", true},
+		{"8", false},
+		{"m", true},
+		{"U", true},
+		{"u", true},
+		{"", false},
+	}
+
+	for _, test := range tests {
+		// Prepare data
+		output := isInputValid(test.input)
+		assert.EqualValues(t, output, test.isValid)
+	}
+
+}
