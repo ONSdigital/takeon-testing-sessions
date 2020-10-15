@@ -52,10 +52,10 @@ func TestIsGameOver(t *testing.T) {
 	}
 }
 
-func TestGetInput(t *testing.T) {
-	output := getInput()
-	assert.EqualValues(t, output, "M")
-}
+// func TestGetInput(t *testing.T) {
+// 	output := getInput()
+// 	assert.EqualValues(t, output, "M")
+// }
 
 func TestIsInputValid(t *testing.T) {
 	tests := []struct {

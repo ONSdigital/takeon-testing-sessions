@@ -18,13 +18,19 @@ func main() { //3
 	var gameOver = false
 	var currentPlayer player
 	currentPlayer.currentFloor = startingFloor
+	currentPlayer.health = 20
 	var inputNumber int = 1
 
-	for gameOver == false {
+	for !gameOver{
 		fmt.Printf("You are currently on floor : %d\n", currentPlayer.currentFloor)
 		output := isLadderPresent(inputNumber)
 		fmt.Printf("Ladder: %t\n", output)
-		if output == true {
+		userInput := getInput()
+		if !isInputValid(userInput){
+			fmt.Printf("Please enter a valid input \n")
+			continue
+		}
+		if output && userInput == "u" || userInput == "U" {
 			currentPlayer.currentFloor--
 		}
 		gameOver = isGameOver(currentPlayer.currentFloor)
@@ -50,7 +56,9 @@ func isInputValid(input string) bool {
 }
 
 func getInput() string {
-	return ""
+	var userInput string
+	fmt.Scan(&userInput)
+	return userInput
 }
 
 func isGameOver(floorNumber int) bool {
@@ -76,4 +84,4 @@ func isGameOver(floorNumber int) bool {
 // 	// }
 // }
 
-// To do: need to link new functions (isInputValid etc) into main loop
+// To do: Simplify main loop, start phase 2 dawn of the monsters, introduce random numbers for ladder/monster
