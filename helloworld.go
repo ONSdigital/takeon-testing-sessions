@@ -2,6 +2,7 @@ package main //1
 
 import (
 		"fmt" 
+		"errors"
 	)
 //import "os"
 
@@ -23,18 +24,30 @@ func main() { //3
 
 	for !gameOver{
 		fmt.Printf("You are currently on floor : %d\n", currentPlayer.currentFloor)
-		output := isLadderPresent(inputNumber)
-		fmt.Printf("Ladder: %t\n", output)
-		userInput := getInput()
-		if !isInputValid(userInput){
-			fmt.Printf("Please enter a valid input \n")
+		ladderPresent := isLadderPresent(inputNumber)
+		fmt.Printf("Ladder: %t\n", ladderPresent)
+		userInput, inputError := processUserInput()
+		if inputError != nil{
 			continue
-		}
-		if output && userInput == "u" || userInput == "U" {
-			currentPlayer.currentFloor--
 		}
 		gameOver = isGameOver(currentPlayer.currentFloor)
 		inputNumber++
+	}
+}
+
+func processUserInput() (string, error) {
+	userInput := getInput()
+	if !isInputValid(userInput){
+		fmt.Printf("Please enter a valid input \n")
+		return "", errors.New("Invalid user input")
+	}
+	return userInput, nil
+}
+
+// To do: distinguish between m&u and what movePlayer function will return
+func movePlayer(ladderPresent bool, userInput string) {
+	if ladderPresent && userInput == "u" || userInput == "U" {
+		currentPlayer.currentFloor--
 	}
 }
 
