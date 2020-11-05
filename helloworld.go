@@ -3,6 +3,7 @@ package main //1
 import (
 		"fmt" 
 		"errors"
+		"math/rand"
 	)
 //import "os"
 
@@ -26,10 +27,12 @@ func main() { //3
 		fmt.Printf("You are currently on floor : %d\n", currentPlayer.currentFloor)
 		ladderPresent := isLadderPresent(inputNumber)
 		fmt.Printf("Ladder: %t\n", ladderPresent)
+		fmt.Printf("Please enter ('U' for up or 'M' for move):\n")
 		userInput, inputError := processUserInput()
 		if inputError != nil{
 			continue
 		}
+		movePlayer(ladderPresent, userInput, &currentPlayer)
 		gameOver = isGameOver(currentPlayer.currentFloor)
 		inputNumber++
 	}
@@ -45,14 +48,15 @@ func processUserInput() (string, error) {
 }
 
 // To do: distinguish between m&u and what movePlayer function will return
-func movePlayer(ladderPresent bool, userInput string) {
+func movePlayer(ladderPresent bool, userInput string, currentPlayer *player) {
 	if ladderPresent && userInput == "u" || userInput == "U" {
 		currentPlayer.currentFloor--
 	}
 }
 
 func isLadderPresent(number int) bool {
-	if number % 4 == 0 {
+	randomNumber := rand.Intn(4)
+	if randomNumber == 0 {
 		return true
 	}
 	return false
@@ -98,3 +102,6 @@ func isGameOver(floorNumber int) bool {
 // }
 
 // To do: Simplify main loop, start phase 2 dawn of the monsters, introduce random numbers for ladder/monster
+
+
+// To do: fix the unit test for the random numbers generator
