@@ -1,46 +1,65 @@
 package main //1
 
 import (
-		"fmt" 
-		"errors"
-		"math/rand"
-	)
+	"errors"
+	"fmt"
+	"math/rand"
+)
+
 //import "os"
 
-
-
-type player struct {
-	health       int
-	name         string
-	currentFloor int
+type location struct {
+	floor         int
+	ladderPresent bool
 }
 
-func main() { //3
-	var startingFloor int = 4
-	var gameOver = false
-	var currentPlayer player
-	currentPlayer.currentFloor = startingFloor
-	currentPlayer.health = 20
-	var inputNumber int = 1
+//Initialise location (floor=4,ladder=false)		Location object?
 
-	for !gameOver{
-		fmt.Printf("You are currently on floor : %d\n", currentPlayer.currentFloor)
-		ladderPresent := isLadderPresent(inputNumber)
+//loop forever:
+//	Determine location information				Random element (25% of giving ladder=true)
+//	Print location information
+//	User makes choice							Capture keyboard input
+//	Move to new location						climb ladder (U) or move (M)
+//	If location is floor 0:						Exit option
+//		Print victory message
+//		exit game
+
+func main() { //3
+
+	var currentLocation location = location{floor: 4, ladderPresent: false}
+
+	var gameOver = false
+
+	// loop forever:
+	for !gameOver {
+
+		//	Determine location information				Random element (25% of giving ladder=true)
+		ladderPresent := isLadderPresent()
+
+		// Print location information
+		fmt.Printf("You are currently on floor : %d\n", currentLocation.floor)
 		fmt.Printf("Ladder: %t\n", ladderPresent)
 		fmt.Printf("Please enter ('U' for up or 'M' for move):\n")
+
+		//	User makes choice							Capture keyboard input
 		userInput, inputError := processUserInput()
-		if inputError != nil{
+		if inputError != nil {
 			continue
 		}
-		movePlayer(ladderPresent, userInput, &currentPlayer)
-		gameOver = isGameOver(currentPlayer.currentFloor)
-		inputNumber++
+
+		//	Move to new location						climb ladder (U) or move (M)
+		movePlayer(ladderPresent, userInput, &currentLocation)
+
+		//	If location is floor 0:						Exit option
+		//		Print victory message
+		//		exit game
+		gameOver = isGameOver(currentLocation.floor)
 	}
 }
 
 func processUserInput() (string, error) {
 	userInput := getInput()
-	if !isInputValid(userInput){
+	if !isInputValid(userInput) {
 		fmt.Printf("Please enter a valid input \n")
 		return "", errors.New("Invalid user input")
 	}
@@ -48,13 +67,13 @@ func processUserInput() (string, error) {
 }
 
 // To do: distinguish between m&u and what movePlayer function will return
-func movePlayer(ladderPresent bool, userInput string, currentPlayer *player) {
+func movePlayer(ladderPresent bool, userInput string, currentLocation *location) {
 	if ladderPresent && userInput == "u" || userInput == "U" {
-		currentPlayer.currentFloor--
+		currentLocation.floor--
 	}
 }
 
-func isLadderPresent(number int) bool {
+func isLadderPresent() bool {
 	randomNumber := rand.Intn(4)
 	if randomNumber == 0 {
 		return true
@@ -65,10 +84,10 @@ func isLadderPresent(number int) bool {
 func isInputValid(input string) bool {
 	if input == "M" || input == "m" {
 		return true
-}
+	}
 	if input == "U" || input == "u" {
 		return true
-}
+	}
 	return false
 }
 
@@ -101,7 +120,4 @@ func isGameOver(floorNumber int) bool {
 // 	// }
 // }
 
-// To do: Simplify main loop, start phase 2 dawn of the monsters, introduce random numbers for ladder/monster
-
-
-// To do: fix the unit test for the random numbers generator
+//To do: Mapping to pseudo code

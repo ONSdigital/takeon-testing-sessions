@@ -1,0 +1,48 @@
+Run via command line.
+You have a player who starts with a certain amount of health
+You start on a particular floor number
+To win - keep climbing up floors until you get to floor 0 (escape!)
+To lose - run out of hit points
+
+Phase 1:
+No way to lose the game.
+Each location has a 25% chance of having a stairway.
+At each location the player can make a choice:
+	• Move to a new location (always available choice)
+	• Climb the ladder/stairs (if one exists)
+A player starts on floor 4.
+
+Break into stories:
+
+Phase 2:
+Each player has a certain number of health points (hp) e.g. 20
+At each location there is a 50% chance of encountering a monster.
+If a monster is found in a location the player enters combat.
+Combat options:
+	• Flee (50% chance of success - if successful move player to new location)
+	• Attack (75% chance of success - if successful monster is removed)
+If a player is unsuccessful the monster hits the player for 5 health points
+If a player is reduced to below 1hp the game is over and the player loses
+The player types in a command to choose their option
+
+Break into stories:
+
+
+
+
+
+
+
+Design/Pseudocode:
+
+
+Initialise location (floor=4,ladder=false)		Location object?
+
+loop forever:
+	Determine location information				Random element (25% of giving ladder=true)
+	Print location information
+	User makes choice							Capture keyboard input
+	Move to new location						climb ladder (U) or move (M)
+	If location is floor 0:						Exit option
+		Print victory message
+		exit game
