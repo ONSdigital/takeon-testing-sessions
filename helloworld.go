@@ -34,12 +34,9 @@ func main() { //3
 	for !gameOver {
 
 		//	Determine location information				Random element (25% of giving ladder=true)
-		ladderPresent := isLadderPresent()
+		currentLocation.ladderPresent = isLadderPresent()
 
-		// Print location information
-		fmt.Printf("You are currently on floor : %d\n", currentLocation.floor)
-		fmt.Printf("Ladder: %t\n", ladderPresent)
-		fmt.Printf("Please enter ('U' for up or 'M' for move):\n")
+		printLocationDetails(&currentLocation)
 
 		//	User makes choice							Capture keyboard input
 		userInput, inputError := processUserInput()
@@ -48,13 +45,18 @@ func main() { //3
 		}
 
 		//	Move to new location						climb ladder (U) or move (M)
-		movePlayer(ladderPresent, userInput, &currentLocation)
+		movePlayer(userInput, &currentLocation)
 
-		//	If location is floor 0:						Exit option
-		//		Print victory message
-		//		exit game
 		gameOver = isGameOver(currentLocation.floor)
 	}
+	// Victory message
+	fmt.Println("You have won!")
+}
+
+func printLocationDetails(Location *location) {
+	fmt.Printf("You are currently on floor : %d\n", Location.floor)
+	fmt.Printf("Ladder: %t\n", Location.ladderPresent)
+	fmt.Printf("Please enter ('U' for up or 'M' for move):\n")
 }
 
 func processUserInput() (string, error) {
@@ -67,8 +69,8 @@ func processUserInput() (string, error) {
 }
 
 // To do: distinguish between m&u and what movePlayer function will return
-func movePlayer(ladderPresent bool, userInput string, currentLocation *location) {
-	if ladderPresent && userInput == "u" || userInput == "U" {
+func movePlayer(userInput string, currentLocation *location) {
+	if currentLocation.ladderPresent && userInput == "u" || userInput == "U" {
 		currentLocation.floor--
 	}
 }

@@ -28,19 +28,41 @@ The player types in a command to choose their option
 Break into stories:
 
 
-
-
-
-
-
 Design/Pseudocode:
 
 
 Initialise location (floor=4,ladder=false)		Location object?
+Initialise player (health=20)					Player object?
 
 loop forever:
 	Determine location information				Random element (25% of giving ladder=true)
+												Random element (50% of giving monster=true)
 	Print location information
+	if combat
+		print combat information
+		User makes choice							Capture keyboard input -- Flee (F) or Attack (A)
+				
+		If (Attack):		
+			
+			If attackSuccesful():
+				Print combat update
+				GOTO end of (if combat)
+			else:
+				Remove 5hp from player
+				Print combat update
+
+		If (Flee):
+			If fleeSuccesful():
+				Print combat update
+				Move to new location (Move only) - do not climb ladder
+			else:
+				Remove 5hp from player
+				Print combat update
+
+	if player health is below 1:
+		Print losing message
+		exit game
+
 	User makes choice							Capture keyboard input
 	Move to new location						climb ladder (U) or move (M)
 	If location is floor 0:						Exit option
